@@ -9,10 +9,22 @@
 	<!-- 动态方法调用，可以调用除了execute之外的方法 -->
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.devMode" value="false" />
+    <!-- struts2 标签生成html的ui防止页面组件混乱 -->
+    <constant name="struts.ui.theme" value="simple" />
 
     <package name="default" namespace="/" extends="struts-default">
-		<action name="hello" class="helloAction">
+		<action name="fileupload" class="helloAction">
 			<result name="SUCCESS">/HelloWorld.jsp</result>
+		</action>
+		<action name="productAction" class="productAction">
+			<result name="SUCCESS">/index.jsp</result>
+			<result name="FORM">/admin/productform.jsp</result>
+			<result name="LIST">/admin/productview.jsp</result>
+			<result name="DETAIL">/productdetail.jsp</result>
+		</action>
+		<action name="userLoginAction" class="userLoginAction">
+			<result name="SUCCESS">/admin/productview.jsp</result>
+			<result name="FAILED">/admin/index.jsp?errorType=1</result>
 		</action>
     </package>
 

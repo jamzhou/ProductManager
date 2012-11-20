@@ -18,21 +18,15 @@ public class DaoUtils {
 	
 	private static DaoUtils daoUtils;
 	
-	private static Connection conn;
-	
 	public static Connection getConn() {
 		if(daoUtils == null) {
 			daoUtils = new DaoUtils();
-			daoUtils.init();
 		}
-		return conn;
+		return daoUtils.connToDatabase();
 	}
 
-	public static void setConn(Connection conn) {
-		DaoUtils.conn = conn;
-	}
-
-	private void init() {
+	private Connection connToDatabase() {
+		Connection conn = null;
 		InputStream is = this.getClass().getClassLoader().getResourceAsStream("jdbc.properties");
 		Properties properties = new Properties();
 		try {
@@ -55,6 +49,7 @@ public class DaoUtils {
 				e.printStackTrace();
 			}
 		}
+		return conn;
 	}
 	
 }

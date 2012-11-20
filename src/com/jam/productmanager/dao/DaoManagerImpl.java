@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -19,17 +21,29 @@ import org.springframework.stereotype.Component;
 @Component("daoManager")
 public class DaoManagerImpl implements DaoManager {
 	
-	public Connection conn = DaoUtils.getConn();
-	
 	public void executeSql(String sql) throws SQLException {
+		Connection conn = DaoUtils.getConn();
 		Statement statement = conn.createStatement();
-		statement.execute(sql);
+		try {
+			statement.execute(sql);
+		} finally {
+			statement.close();
+			conn.close();
+		}
 	}
 	
-	public ResultSet querySql(String sql) throws SQLException {
-		PreparedStatement preparedStatement = conn.prepareStatement(sql);
-		ResultSet rs = preparedStatement.executeQuery(sql);
-		return rs;
+	public Map<String,Object> querySql(String sql) throws SQLException {
+		Map<String,Object> map = new HashMap<String,Object>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		Connection conn = DaoUtils.getConn();
+		preparedStatement = conn.prepareStatement(sql);
+		rs = preparedStatement.executeQuery(sql);
+		map.put(KEY_CONNECTION, conn);
+		map.put(KEY_PREPAREDSTATEMENT, preparedStatement);
+		map.put(KEY_RESULTSET, rs);
+		return map;
 	}
+	
 }
 

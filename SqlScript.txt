@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS `productmanager`.`product`;
+CREATE TABLE  `productmanager`.`product` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `productname` varchar(45) NOT NULL,
+  `price` varchar(45) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `characteristic` longtext NOT NULL,
+  `description` longtext NOT NULL,
+  `imagePath` varchar(45) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;

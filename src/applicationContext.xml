@@ -10,5 +10,8 @@
 		<context:component-scan base-package="com.jam"/>  
 
 	<bean id="helloAction" class="com.jam.productmanager.action.HelloAction"></bean>
-	
+	<bean id="productAction" class="com.jam.productmanager.product.action.ProductAction">
+		<property name="productManager" ref="productManager"></property>
+	</bean>
+	<bean id="userLoginAction" class="com.jam.productmanager.user.UserLoginAction"></bean>
 </beans>
